@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import InstagramIcon from "./InstagramIcon";
 
 const navLinks = [
@@ -14,12 +14,25 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
+    const stored = localStorage.getItem("theme") as "dark" | "light" | null;
+    if (stored) {
+      setTheme(stored);
+      document.documentElement.setAttribute("data-theme", stored);
+    }
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  };
 
   const handleNavClick = (href: string) => {
     setOpen(false);
@@ -92,6 +105,34 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
+
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle light/dark mode"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "36px",
+              height: "36px",
+              borderRadius: "50%",
+              border: "1px solid var(--border-medium)",
+              background: "none",
+              cursor: "pointer",
+              color: "var(--text-secondary)",
+              transition: "color 200ms var(--ease-out), border-color 200ms var(--ease-out)",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
+              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
+              (e.currentTarget as HTMLElement).style.borderColor = "var(--border-medium)";
+            }}
+          >
+            {theme === "dark" ? <Sun size={15} strokeWidth={1.5} /> : <Moon size={15} strokeWidth={1.5} />}
+          </button>
 
           <a
             href="https://www.instagram.com/siasmakeup"
@@ -201,6 +242,27 @@ export default function Navbar() {
           <InstagramIcon size={16} strokeWidth={1.5} />
           @siasmakeup
         </a>
+
+        <button
+          onClick={toggleTheme}
+          style={{
+            marginTop: "0.5rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: "var(--font-inter)",
+            fontSize: "0.7rem",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: "var(--text-muted)",
+          }}
+        >
+          {theme === "dark" ? <Sun size={14} strokeWidth={1.5} /> : <Moon size={14} strokeWidth={1.5} />}
+          {theme === "dark" ? "Light Mode" : "Dark Mode"}
+        </button>
       </div>
     </>
   );

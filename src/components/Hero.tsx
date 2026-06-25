@@ -30,10 +30,10 @@ export default function Hero() {
         minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "center",
         overflow: "hidden",
-        padding: "72px 1.5rem 4rem",
+        padding: "72px clamp(2.5rem, 8vw, 9rem) 4rem",
       }}
     >
       {/* Industrial concrete background layers */}
@@ -79,8 +79,8 @@ export default function Hero() {
         ref={scrollRef}
         style={{
           position: "relative",
-          textAlign: "center",
-          maxWidth: "780px",
+          textAlign: "left",
+          maxWidth: "720px",
           opacity: 0,
           transform: "translateY(24px)",
           transition: "opacity 800ms var(--ease-out), transform 800ms var(--ease-out)",
@@ -108,7 +108,7 @@ export default function Hero() {
             width: "48px",
             height: "1px",
             background: "var(--accent-gold)",
-            margin: "0 auto 1.5rem",
+            margin: "0 0 1.5rem",
             opacity: 0.7,
           }}
         />
@@ -159,7 +159,7 @@ export default function Hero() {
             display: "flex",
             flexWrap: "wrap",
             gap: "1rem",
-            justifyContent: "center",
+            justifyContent: "flex-start",
           }}
         >
           <a

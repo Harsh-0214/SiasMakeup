@@ -39,9 +39,7 @@ export default function Gallery() {
     <section
       id="gallery"
       style={{
-        padding: "7rem 1.5rem",
-        maxWidth: "1200px",
-        margin: "0 auto",
+        padding: "7rem clamp(2rem, 5vw, 5rem)",
       }}
     >
       <div ref={ref}>
@@ -52,7 +50,7 @@ export default function Gallery() {
             opacity: 0,
             transform: "translateY(20px)",
             transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
-            textAlign: "center",
+            textAlign: "left",
             marginBottom: "3.5rem",
           }}
         >
@@ -89,7 +87,7 @@ export default function Gallery() {
               height: "1px",
               background: "var(--accent-gold)",
               opacity: 0.6,
-              margin: "0 auto 1rem",
+              margin: "0 0 1rem",
             }}
           />
           <p
@@ -98,7 +96,6 @@ export default function Gallery() {
               fontSize: "0.85rem",
               color: "var(--text-muted)",
               maxWidth: "400px",
-              margin: "0 auto",
               lineHeight: 1.7,
             }}
           >
@@ -138,7 +135,7 @@ export default function Gallery() {
             transform: "translateY(20px)",
             transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
           }}
         >
           <a
@@ -182,7 +179,6 @@ export default function Gallery() {
 }
 
 function GalleryCard({ label, aspect, index }: { label: string; aspect: string; index: number }) {
-  /* Varied earth-tone gradients to simulate photos */
   const gradients = [
     "linear-gradient(135deg, #2a2218 0%, #3d3025 40%, #1e1a14 100%)",
     "linear-gradient(150deg, #1a1c18 0%, #2d2820 50%, #241f18 100%)",
@@ -221,7 +217,6 @@ function GalleryCard({ label, aspect, index }: { label: string; aspect: string; 
         }}
       />
 
-      {/* Texture dots */}
       <div
         style={{
           position: "absolute",
@@ -231,7 +226,6 @@ function GalleryCard({ label, aspect, index }: { label: string; aspect: string; 
         }}
       />
 
-      {/* Label overlay */}
       <div
         className="gallery-overlay"
         style={{
@@ -268,7 +262,6 @@ function GalleryCard({ label, aspect, index }: { label: string; aspect: string; 
         />
       </div>
 
-      {/* Bottom label always visible */}
       <div
         style={{
           position: "absolute",

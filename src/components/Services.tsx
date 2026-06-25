@@ -277,16 +277,13 @@ export default function Services() {
     <section
       id="services"
       style={{
-        padding: "7rem 1.5rem",
+        padding: "7rem clamp(2rem, 5vw, 5rem)",
         backgroundColor: "var(--bg-secondary)",
         borderTop: "1px solid var(--border-subtle)",
         borderBottom: "1px solid var(--border-subtle)",
       }}
     >
-      <div
-        ref={ref}
-        style={{ maxWidth: "860px", margin: "0 auto" }}
-      >
+      <div ref={ref}>
         {/* Header */}
         <div
           data-reveal
@@ -294,7 +291,7 @@ export default function Services() {
             opacity: 0,
             transform: "translateY(20px)",
             transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
-            textAlign: "center",
+            textAlign: "left",
             marginBottom: "3.5rem",
           }}
         >
@@ -331,7 +328,7 @@ export default function Services() {
               height: "1px",
               background: "var(--accent-gold)",
               opacity: 0.6,
-              margin: "0 auto",
+              margin: "0",
             }}
           />
         </div>
@@ -459,7 +456,7 @@ export default function Services() {
             opacity: 0,
             transform: "translateY(20px)",
             transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
-            textAlign: "center",
+            textAlign: "left",
             marginTop: "3.5rem",
             padding: "2.5rem",
             border: "1px solid var(--border-subtle)",
