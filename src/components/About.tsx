@@ -1,15 +1,33 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+function useCountUp(target: number, shouldStart: boolean, duration = 1800) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!shouldStart) return;
+    const startTime = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * target));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [shouldStart, target, duration]);
+  return value;
+}
 
 const stats = [
-  { value: "5+", label: "Years Experience" },
-  { value: "200+", label: "Happy Clients" },
-  { value: "GTA", label: "& Beyond" },
+  { numeric: 5, suffix: "+", label: "Years Experience" },
+  { numeric: 200, suffix: "+", label: "Happy Clients" },
+  { numeric: null, display: "GTA", label: "& Beyond" },
 ];
 
 export default function About() {
   const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -17,51 +35,55 @@ export default function About() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          setVisible(true);
           el.querySelectorAll<HTMLElement>("[data-reveal]").forEach((child, i) => {
             setTimeout(() => {
               child.style.opacity = "1";
               child.style.transform = "translateY(0)";
-            }, i * 80);
+            }, i * 90);
           });
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
+  const count0 = useCountUp(stats[0].numeric!, visible);
+  const count1 = useCountUp(stats[1].numeric!, visible, 2200);
+
+  const counts = [count0, count1, null];
+
   return (
     <section
       id="about"
       ref={ref}
-      style={{
-        padding: "7rem clamp(2rem, 5vw, 5rem)",
-      }}
+      style={{ padding: "8rem clamp(2rem, 5vw, 5rem)" }}
     >
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "1fr",
-          gap: "4rem",
+          gap: "4.5rem",
         }}
         className="lg:grid-cols-2"
       >
-        {/* Left: decorative element + stats */}
+        {/* Left */}
         <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
           <div
             data-reveal
             style={{
               opacity: 0,
-              transform: "translateY(20px)",
-              transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+              transform: "translateY(24px)",
+              transition: "opacity 700ms var(--ease-out), transform 700ms var(--ease-out)",
             }}
           >
-            {/* Abstract industrial block */}
+            {/* Monogram card */}
             <div
               style={{
                 width: "100%",
-                maxWidth: "420px",
+                maxWidth: "440px",
                 aspectRatio: "4/3",
                 position: "relative",
                 overflow: "hidden",
@@ -69,18 +91,16 @@ export default function About() {
                 border: "1px solid var(--border-subtle)",
               }}
             >
-              {/* Concrete texture layers */}
               <div
                 style={{
                   position: "absolute",
                   inset: 0,
                   background: `
-                    linear-gradient(135deg, rgba(139,115,85,0.12) 0%, transparent 50%),
-                    linear-gradient(315deg, rgba(107,98,88,0.1) 0%, transparent 60%)
+                    linear-gradient(135deg, rgba(139,115,85,0.15) 0%, transparent 55%),
+                    linear-gradient(315deg, rgba(107,98,88,0.12) 0%, transparent 60%)
                   `,
                 }}
               />
-              {/* Studio aesthetic text overlay */}
               <div
                 style={{
                   position: "absolute",
@@ -89,40 +109,27 @@ export default function About() {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "2rem",
-                  textAlign: "center",
+                  gap: "1rem",
                 }}
               >
-                {/* SM monogram */}
-                <div
+                <span
                   style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                    border: "1px solid var(--border-medium)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: "1.5rem",
+                    fontFamily: "var(--font-bodoni)",
+                    fontSize: "clamp(5rem, 14vw, 8rem)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.02em",
+                    color: "var(--accent-gold)",
+                    lineHeight: 0.88,
+                    opacity: 0.9,
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-cormorant)",
-                      fontSize: "1.5rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.05em",
-                      color: "var(--accent-gold)",
-                    }}
-                  >
-                    SM
-                  </span>
-                </div>
+                  SM
+                </span>
                 <p
                   style={{
                     fontFamily: "var(--font-inter)",
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.3em",
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.35em",
                     textTransform: "uppercase",
                     color: "var(--text-muted)",
                   }}
@@ -130,32 +137,9 @@ export default function About() {
                   Sia&apos;s Makeup Studio
                 </p>
               </div>
-
-              {/* Gold corner accent */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "1.25rem",
-                  right: "1.25rem",
-                  width: "32px",
-                  height: "32px",
-                  borderTop: "1px solid var(--accent-gold)",
-                  borderRight: "1px solid var(--accent-gold)",
-                  opacity: 0.6,
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "1.25rem",
-                  left: "1.25rem",
-                  width: "32px",
-                  height: "32px",
-                  borderBottom: "1px solid var(--accent-gold)",
-                  borderLeft: "1px solid var(--accent-gold)",
-                  opacity: 0.6,
-                }}
-              />
+              {/* Corner accents */}
+              <div style={{ position: "absolute", top: "1.25rem", right: "1.25rem", width: "28px", height: "28px", borderTop: "1px solid var(--accent-gold)", borderRight: "1px solid var(--accent-gold)", opacity: 0.5 }} />
+              <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", width: "28px", height: "28px", borderBottom: "1px solid var(--accent-gold)", borderLeft: "1px solid var(--accent-gold)", opacity: 0.5 }} />
             </div>
           </div>
 
@@ -164,11 +148,10 @@ export default function About() {
             data-reveal
             style={{
               opacity: 0,
-              transform: "translateY(20px)",
-              transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+              transform: "translateY(24px)",
+              transition: "opacity 700ms var(--ease-out) 80ms, transform 700ms var(--ease-out) 80ms",
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "0",
               border: "1px solid var(--border-subtle)",
             }}
           >
@@ -176,29 +159,32 @@ export default function About() {
               <div
                 key={stat.label}
                 style={{
-                  padding: "1.5rem 1rem",
+                  padding: "1.75rem 1rem",
                   textAlign: "center",
                   borderRight: i < stats.length - 1 ? "1px solid var(--border-subtle)" : "none",
                 }}
               >
                 <p
                   style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "2rem",
-                    fontWeight: 600,
+                    fontFamily: "var(--font-bodoni)",
+                    fontSize: "2.2rem",
+                    fontWeight: 400,
                     color: "var(--accent-gold)",
                     lineHeight: 1,
-                    marginBottom: "0.375rem",
+                    marginBottom: "0.4rem",
+                    letterSpacing: "-0.02em",
                   }}
                 >
-                  {stat.value}
+                  {stat.numeric !== null
+                    ? `${counts[i]}${stat.suffix}`
+                    : stat.display}
                 </p>
                 <p
                   style={{
                     fontFamily: "var(--font-inter)",
-                    fontSize: "0.65rem",
+                    fontSize: "0.6rem",
                     fontWeight: 500,
-                    letterSpacing: "0.15em",
+                    letterSpacing: "0.18em",
                     textTransform: "uppercase",
                     color: "var(--text-muted)",
                   }}
@@ -211,42 +197,55 @@ export default function About() {
         </div>
 
         {/* Right: text */}
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "1.5rem" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "1.75rem",
+          }}
+        >
           <div
             data-reveal
             style={{
               opacity: 0,
-              transform: "translateY(20px)",
-              transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+              transform: "translateY(24px)",
+              transition: "opacity 700ms var(--ease-out) 120ms, transform 700ms var(--ease-out) 120ms",
             }}
           >
             <p
               style={{
                 fontFamily: "var(--font-inter)",
-                fontSize: "0.65rem",
+                fontSize: "0.6rem",
                 fontWeight: 500,
-                letterSpacing: "0.3em",
+                letterSpacing: "0.32em",
                 textTransform: "uppercase",
                 color: "var(--accent-gold)",
-                marginBottom: "1rem",
+                marginBottom: "1.25rem",
               }}
             >
               About Sia
             </p>
             <h2
               style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2rem, 5vw, 3rem)",
+                fontFamily: "var(--font-bodoni)",
+                fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
                 fontWeight: 400,
-                letterSpacing: "0.04em",
+                letterSpacing: "-0.01em",
                 textTransform: "uppercase",
                 color: "var(--text-primary)",
-                lineHeight: 1.1,
+                lineHeight: 1,
               }}
             >
               The Art of
               <br />
-              <em style={{ color: "var(--accent-gold)", fontStyle: "italic", fontWeight: 300 }}>
+              <em
+                style={{
+                  fontStyle: "italic",
+                  color: "var(--accent-gold)",
+                  fontWeight: 400,
+                }}
+              >
                 Making You Shine
               </em>
             </h2>
@@ -256,8 +255,8 @@ export default function About() {
             data-reveal
             style={{
               opacity: 0,
-              transform: "translateY(20px)",
-              transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+              transform: "translateY(24px)",
+              transition: "opacity 700ms var(--ease-out) 200ms, transform 700ms var(--ease-out) 200ms",
             }}
           >
             <div
@@ -265,17 +264,17 @@ export default function About() {
                 width: "40px",
                 height: "1px",
                 background: "var(--accent-gold)",
-                opacity: 0.6,
-                marginBottom: "1.25rem",
+                opacity: 0.7,
+                marginBottom: "1.5rem",
               }}
             />
             <p
               style={{
                 fontFamily: "var(--font-inter)",
-                fontSize: "0.9rem",
-                lineHeight: 1.8,
+                fontSize: "0.92rem",
+                lineHeight: 1.9,
                 color: "var(--text-secondary)",
-                marginBottom: "1rem",
+                marginBottom: "1.1rem",
               }}
             >
               Hi, I&apos;m Sia — a freelance makeup artist based in the GTA with a passion for
@@ -286,14 +285,14 @@ export default function About() {
             <p
               style={{
                 fontFamily: "var(--font-inter)",
-                fontSize: "0.9rem",
-                lineHeight: 1.8,
+                fontSize: "0.92rem",
+                lineHeight: 1.9,
                 color: "var(--text-secondary)",
               }}
             >
-              Specializing in bridal, editorial, SFX, and everyday glam — with services
-              for every occasion and all genders. I travel within the GTA and beyond to
-              bring the studio to you.
+              Specializing in bridal, editorial, SFX, and everyday glam — with services for
+              every occasion and all genders. I travel within the GTA and beyond to bring the
+              studio to you.
             </p>
           </div>
 
@@ -301,8 +300,8 @@ export default function About() {
             data-reveal
             style={{
               opacity: 0,
-              transform: "translateY(20px)",
-              transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+              transform: "translateY(24px)",
+              transition: "opacity 700ms var(--ease-out) 280ms, transform 700ms var(--ease-out) 280ms",
             }}
           >
             <a
@@ -314,18 +313,24 @@ export default function About() {
                 alignItems: "center",
                 gap: "0.5rem",
                 fontFamily: "var(--font-inter)",
-                fontSize: "0.7rem",
+                fontSize: "0.68rem",
                 fontWeight: 500,
-                letterSpacing: "0.15em",
+                letterSpacing: "0.18em",
                 textTransform: "uppercase",
                 color: "var(--accent-gold)",
                 textDecoration: "none",
                 borderBottom: "1px solid var(--accent-gold-dark)",
-                paddingBottom: "2px",
-                transition: "color 200ms var(--ease-out)",
+                paddingBottom: "3px",
+                transition: "color 200ms var(--ease-out), border-color 200ms var(--ease-out)",
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--accent-gold-light)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--accent-gold)")}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "var(--accent-gold-light)";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold-dark)";
+              }}
             >
               Follow @siasmakeup →
             </a>

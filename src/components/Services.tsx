@@ -310,13 +310,13 @@ export default function Services() {
           </p>
           <h2
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(2rem, 5vw, 3rem)",
+              fontFamily: "var(--font-bodoni)",
+              fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
               fontWeight: 400,
-              letterSpacing: "0.06em",
+              letterSpacing: "-0.01em",
               textTransform: "uppercase",
               color: "var(--text-primary)",
-              lineHeight: 1.1,
+              lineHeight: 1,
               marginBottom: "0.75rem",
             }}
           >
