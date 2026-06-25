@@ -36,9 +36,7 @@ export default function About() {
       id="about"
       ref={ref}
       style={{
-        padding: "7rem 1.5rem",
-        maxWidth: "1100px",
-        margin: "0 auto",
+        padding: "7rem clamp(2rem, 5vw, 5rem)",
       }}
     >
       <div

@@ -61,12 +61,12 @@ export default function Contact() {
     <section
       id="contact"
       style={{
-        padding: "7rem 1.5rem",
+        padding: "7rem clamp(2rem, 5vw, 5rem)",
         backgroundColor: "var(--bg-secondary)",
         borderTop: "1px solid var(--border-subtle)",
       }}
     >
-      <div ref={ref} style={{ maxWidth: "860px", margin: "0 auto" }}>
+      <div ref={ref}>
         {/* Header */}
         <div
           data-reveal
@@ -74,7 +74,7 @@ export default function Contact() {
             opacity: 0,
             transform: "translateY(20px)",
             transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
-            textAlign: "center",
+            textAlign: "left",
             marginBottom: "3.5rem",
           }}
         >
@@ -115,7 +115,7 @@ export default function Contact() {
               height: "1px",
               background: "var(--accent-gold)",
               opacity: 0.6,
-              margin: "0 auto 1.25rem",
+              margin: "0 0 1.25rem",
             }}
           />
           <p
@@ -124,8 +124,7 @@ export default function Contact() {
               fontSize: "0.875rem",
               lineHeight: 1.8,
               color: "var(--text-secondary)",
-              maxWidth: "480px",
-              margin: "0 auto",
+              maxWidth: "600px",
             }}
           >
             Ready to book or have questions? Reach out via any of the channels below.
@@ -238,7 +237,7 @@ export default function Contact() {
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             gap: "2rem",
           }}
         >

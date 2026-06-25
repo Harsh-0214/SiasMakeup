@@ -39,9 +39,7 @@ export default function Gallery() {
     <section
       id="gallery"
       style={{
-        padding: "7rem 1.5rem",
-        maxWidth: "1200px",
-        margin: "0 auto",
+        padding: "7rem clamp(2rem, 5vw, 5rem)",
       }}
     >
       <div ref={ref}>
@@ -52,7 +50,7 @@ export default function Gallery() {
             opacity: 0,
             transform: "translateY(20px)",
             transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
-            textAlign: "center",
+            textAlign: "left",
             marginBottom: "3.5rem",
           }}
         >
@@ -89,7 +87,7 @@ export default function Gallery() {
               height: "1px",
               background: "var(--accent-gold)",
               opacity: 0.6,
-              margin: "0 auto 1rem",
+              margin: "0 0 1rem",
             }}
           />
           <p
@@ -138,7 +136,7 @@ export default function Gallery() {
             transform: "translateY(20px)",
             transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
           }}
         >
           <a

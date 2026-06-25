@@ -25,6 +25,29 @@
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+/* Light mode — warm plaster/concrete studio palette */
+[data-theme="light"] {
+  --bg-primary: #eae5dc;
+  --bg-secondary: #ddd7cc;
+  --bg-surface: #f2ede5;
+  --bg-elevated: #f8f4ee;
+
+  --text-primary: #1a1816;
+  --text-secondary: #3d3428;
+  --text-muted: #7d7165;
+
+  --accent-gold: #a07830;
+  --accent-gold-light: #c9a66b;
+  --accent-gold-dark: #7a5820;
+
+  --earth-warm: #8b7355;
+  --earth-clay: #7a5c38;
+  --earth-concrete: #9a9088;
+
+  --border-subtle: rgba(100, 80, 55, 0.15);
+  --border-medium: rgba(100, 80, 55, 0.32);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -66,6 +89,11 @@ body::after {
 ::-webkit-scrollbar-thumb {
   background: var(--earth-warm);
   border-radius: 3px;
+}
+
+[data-theme="light"] body::after {
+  opacity: 0.018;
+  mix-blend-mode: multiply;
 }
 
 @media (prefers-reduced-motion: reduce) {

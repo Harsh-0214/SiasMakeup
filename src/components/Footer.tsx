@@ -8,13 +8,11 @@ export default function Footer() {
       style={{
         backgroundColor: "var(--bg-primary)",
         borderTop: "1px solid var(--border-subtle)",
-        padding: "2.5rem 1.5rem",
+        padding: "2.5rem clamp(2rem, 5vw, 5rem)",
       }}
     >
       <div
         style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
