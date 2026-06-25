@@ -132,6 +132,11 @@ body::after {
   to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes rotateIn {
+  from { opacity: 0; transform: rotate(-4deg) scale(0.96); }
+  to { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
 /* Shimmer gold utility */
 .gold-shimmer {
   background: linear-gradient(

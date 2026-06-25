@@ -188,7 +188,6 @@ export default function Navbar() {
         </button>
       </header>
 
-      {/* Scroll progress bar */}
       <div
         aria-hidden
         style={{
@@ -204,7 +203,6 @@ export default function Navbar() {
         }}
       />
 
-      {/* Mobile menu overlay */}
       <div
         style={{
           position: "fixed",

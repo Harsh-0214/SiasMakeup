@@ -81,9 +81,17 @@ export default function Footer() {
           gap: "1rem",
         }}
       >
-        <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.6rem", letterSpacing: "0.1em", color: "var(--text-muted)" }}>
+        <p
+          style={{
+            fontFamily: "var(--font-inter)",
+            fontSize: "0.6rem",
+            letterSpacing: "0.1em",
+            color: "var(--text-muted)",
+          }}
+        >
           © {new Date().getFullYear()} Sia&apos;s Makeup. All rights reserved.
         </p>
+
         <a
           href="https://www.instagram.com/siasmakeup"
           target="_blank"
@@ -100,8 +108,12 @@ export default function Footer() {
             textDecoration: "none",
             transition: "color 200ms var(--ease-out)",
           }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--accent-gold)")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--text-muted)")}
+          onMouseEnter={(e) =>
+            ((e.currentTarget as HTMLElement).style.color = "var(--accent-gold)")
+          }
+          onMouseLeave={(e) =>
+            ((e.currentTarget as HTMLElement).style.color = "var(--text-muted)")
+          }
         >
           <InstagramIcon size={12} strokeWidth={1.5} />
           @siasmakeup

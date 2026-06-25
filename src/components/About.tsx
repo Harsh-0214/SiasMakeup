@@ -52,6 +52,7 @@ export default function About() {
 
   const count0 = useCountUp(stats[0].numeric!, visible);
   const count1 = useCountUp(stats[1].numeric!, visible, 2200);
+
   const counts = [count0, count1, null];
 
   return (
@@ -61,7 +62,11 @@ export default function About() {
       style={{ padding: "8rem clamp(2rem, 5vw, 5rem)" }}
     >
       <div
-        style={{ display: "grid", gridTemplateColumns: "1fr", gap: "4.5rem" }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          gap: "4.5rem",
+        }}
         className="lg:grid-cols-2"
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
@@ -187,7 +192,14 @@ export default function About() {
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "1.75rem" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "1.75rem",
+          }}
+        >
           <div
             data-reveal
             style={{
@@ -222,7 +234,13 @@ export default function About() {
             >
               The Art of
               <br />
-              <em style={{ fontStyle: "italic", color: "var(--accent-gold)", fontWeight: 400 }}>
+              <em
+                style={{
+                  fontStyle: "italic",
+                  color: "var(--accent-gold)",
+                  fontWeight: 400,
+                }}
+              >
                 Making You Shine
               </em>
             </h2>
@@ -236,14 +254,37 @@ export default function About() {
               transition: "opacity 700ms var(--ease-out) 200ms, transform 700ms var(--ease-out) 200ms",
             }}
           >
-            <div style={{ width: "40px", height: "1px", background: "var(--accent-gold)", opacity: 0.7, marginBottom: "1.5rem" }} />
-            <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.92rem", lineHeight: 1.9, color: "var(--text-secondary)", marginBottom: "1.1rem" }}>
+            <div
+              style={{
+                width: "40px",
+                height: "1px",
+                background: "var(--accent-gold)",
+                opacity: 0.7,
+                marginBottom: "1.5rem",
+              }}
+            />
+            <p
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontSize: "0.92rem",
+                lineHeight: 1.9,
+                color: "var(--text-secondary)",
+                marginBottom: "1.1rem",
+              }}
+            >
               Hi, I&apos;m Sia — a freelance makeup artist based in the GTA with a passion for
               enhancing natural beauty and creating bold, transformative looks. Whether you&apos;re
               walking down the aisle, stepping in front of a camera, or simply wanting to feel
               your best, I bring precision and artistry to every face I work on.
             </p>
-            <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.92rem", lineHeight: 1.9, color: "var(--text-secondary)" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontSize: "0.92rem",
+                lineHeight: 1.9,
+                color: "var(--text-secondary)",
+              }}
+            >
               Specializing in bridal, editorial, SFX, and everyday glam — with services for
               every occasion and all genders. I travel within the GTA and beyond to bring the
               studio to you.

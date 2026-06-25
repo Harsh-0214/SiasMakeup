@@ -37,7 +37,6 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Parallax background */}
       <div
         ref={bgRef}
         aria-hidden
@@ -67,7 +66,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Giant SM watermark */}
       <div
         aria-hidden
         style={{
@@ -89,7 +87,6 @@ export default function Hero() {
         SM
       </div>
 
-      {/* Main content */}
       <div
         style={{
           position: "relative",
@@ -279,7 +276,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <button
         onClick={() => document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" })}
         aria-label="Scroll to about section"
@@ -318,7 +314,6 @@ export default function Hero() {
         <ChevronDown size={14} strokeWidth={1.2} />
       </button>
 
-      {/* Marquee strip */}
       <div
         style={{
           position: "relative",
@@ -348,6 +343,7 @@ export default function Hero() {
                 textTransform: "uppercase",
                 color: "var(--text-muted)",
                 whiteSpace: "nowrap",
+                paddingRight: "0",
               }}
             >
               {text}

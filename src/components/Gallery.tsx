@@ -48,7 +48,17 @@ export default function Gallery() {
             marginBottom: "4rem",
           }}
         >
-          <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.6rem", fontWeight: 500, letterSpacing: "0.32em", textTransform: "uppercase", color: "var(--accent-gold)", marginBottom: "1.1rem" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-inter)",
+              fontSize: "0.6rem",
+              fontWeight: 500,
+              letterSpacing: "0.32em",
+              textTransform: "uppercase",
+              color: "var(--accent-gold)",
+              marginBottom: "1.1rem",
+            }}
+          >
             Portfolio
           </p>
           <h2
@@ -65,8 +75,24 @@ export default function Gallery() {
           >
             Recent Work
           </h2>
-          <div style={{ width: "40px", height: "1px", background: "var(--accent-gold)", opacity: 0.7, margin: "0 0 1.25rem" }} />
-          <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.85rem", color: "var(--text-muted)", maxWidth: "400px", lineHeight: 1.8 }}>
+          <div
+            style={{
+              width: "40px",
+              height: "1px",
+              background: "var(--accent-gold)",
+              opacity: 0.7,
+              margin: "0 0 1.25rem",
+            }}
+          />
+          <p
+            style={{
+              fontFamily: "var(--font-inter)",
+              fontSize: "0.85rem",
+              color: "var(--text-muted)",
+              maxWidth: "400px",
+              lineHeight: 1.8,
+            }}
+          >
             Follow along on Instagram for the latest looks, behind-the-scenes and more.
           </p>
         </div>
@@ -122,7 +148,8 @@ export default function Gallery() {
               letterSpacing: "0.2em",
               textTransform: "uppercase",
               textDecoration: "none",
-              transition: "color 250ms var(--ease-out), border-color 250ms var(--ease-out), transform 180ms var(--ease-out)",
+              transition:
+                "color 250ms var(--ease-out), border-color 250ms var(--ease-out), transform 180ms var(--ease-out)",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
@@ -132,8 +159,12 @@ export default function Gallery() {
               (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
               (e.currentTarget as HTMLElement).style.borderColor = "var(--border-medium)";
             }}
-            onMouseDown={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(0.97)")}
-            onMouseUp={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+            onMouseDown={(e) =>
+              ((e.currentTarget as HTMLElement).style.transform = "scale(0.97)")
+            }
+            onMouseUp={(e) =>
+              ((e.currentTarget as HTMLElement).style.transform = "scale(1)")
+            }
           >
             <InstagramIcon size={14} strokeWidth={1.5} />
             View Full Portfolio on Instagram
@@ -144,7 +175,15 @@ export default function Gallery() {
   );
 }
 
-function GalleryCard({ label, aspect, index }: { label: string; aspect: string; index: number }) {
+function GalleryCard({
+  label,
+  aspect,
+  index,
+}: {
+  label: string;
+  aspect: string;
+  index: number;
+}) {
   const gradients = [
     "linear-gradient(135deg, #2a2218 0%, #3d3025 40%, #1e1a14 100%)",
     "linear-gradient(150deg, #1a1c18 0%, #2d2820 50%, #241f18 100%)",
@@ -180,30 +219,86 @@ function GalleryCard({ label, aspect, index }: { label: string; aspect: string; 
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
         e.currentTarget.style.boxShadow = "none";
-        e.currentTarget.style.transition = "transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out)";
+        e.currentTarget.style.transition =
+          "transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out)";
         const overlay = e.currentTarget.querySelector<HTMLElement>(".gallery-overlay");
         if (overlay) overlay.style.opacity = "0";
         e.currentTarget.style.borderColor = "var(--border-subtle)";
       }}
     >
-      <div style={{ position: "absolute", inset: 0, background: gradients[index % gradients.length] }} />
-      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(201,166,107,0.07) 1px, transparent 1px)", backgroundSize: "18px 18px" }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: gradients[index % gradients.length],
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "radial-gradient(circle, rgba(201,166,107,0.07) 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
+        }}
+      />
+
       <div
         className="gallery-overlay"
         style={{
-          position: "absolute", inset: 0,
+          position: "absolute",
+          inset: 0,
           backgroundColor: "rgba(16,15,13,0.78)",
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          opacity: 0, transition: "opacity 280ms var(--ease-out)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          opacity: 0,
+          transition: "opacity 280ms var(--ease-out)",
         }}
       >
-        <p style={{ fontFamily: "var(--font-bodoni)", fontSize: "1.4rem", fontWeight: 400, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-primary)" }}>
+        <p
+          style={{
+            fontFamily: "var(--font-bodoni)",
+            fontSize: "1.4rem",
+            fontWeight: 400,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--text-primary)",
+          }}
+        >
           {label}
         </p>
-        <div style={{ width: "24px", height: "1px", background: "var(--accent-gold)", marginTop: "0.6rem" }} />
+        <div
+          style={{
+            width: "24px",
+            height: "1px",
+            background: "var(--accent-gold)",
+            marginTop: "0.6rem",
+          }}
+        />
       </div>
-      <div style={{ position: "absolute", bottom: "0.75rem", left: "0.75rem" }}>
-        <span style={{ fontFamily: "var(--font-inter)", fontSize: "0.55rem", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-muted)", backgroundColor: "rgba(16,15,13,0.72)", padding: "3px 8px" }}>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: "0.75rem",
+          left: "0.75rem",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-inter)",
+            fontSize: "0.55rem",
+            fontWeight: 500,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "var(--text-muted)",
+            backgroundColor: "rgba(16,15,13,0.72)",
+            padding: "3px 8px",
+          }}
+        >
           {label}
         </span>
       </div>
