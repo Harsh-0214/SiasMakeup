@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #131210;
-  --bg-secondary: #1c1a17;
-  --bg-surface: #242118;
-  --bg-elevated: #2d2923;
+  --bg-primary: #100f0d;
+  --bg-secondary: #171511;
+  --bg-surface: #1e1c18;
+  --bg-elevated: #272420;
 
-  --text-primary: #f2ebe0;
+  --text-primary: #f0e8dc;
   --text-secondary: #c4b49a;
   --text-muted: #7a6e60;
 
@@ -18,8 +18,8 @@
   --earth-clay: #a0876a;
   --earth-concrete: #6b6258;
 
-  --border-subtle: rgba(201, 166, 107, 0.12);
-  --border-medium: rgba(201, 166, 107, 0.28);
+  --border-subtle: rgba(201, 166, 107, 0.1);
+  --border-medium: rgba(201, 166, 107, 0.25);
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -66,7 +66,7 @@ body {
   min-height: 100dvh;
 }
 
-/* Subtle grain texture for industrial feel */
+/* Grain texture */
 body::after {
   content: '';
   position: fixed;
@@ -76,24 +76,76 @@ body::after {
   background-size: 300px 300px;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.025;
+  opacity: 0.022;
   mix-blend-mode: overlay;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--earth-warm);
-  border-radius: 3px;
+[data-theme="light"] body::after {
+  opacity: 0.016;
+  mix-blend-mode: multiply;
 }
 
-[data-theme="light"] body::after {
-  opacity: 0.018;
-  mix-blend-mode: multiply;
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--earth-warm); border-radius: 2px; }
+
+/* ── Animation keyframes ───────────────────────────── */
+
+@keyframes slideUpReveal {
+  from {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes bobDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes shimmerGold {
+  0% { background-position: -300% center; }
+  100% { background-position: 300% center; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Shimmer gold utility */
+.gold-shimmer {
+  background: linear-gradient(
+    120deg,
+    var(--accent-gold) 0%,
+    var(--accent-gold-light) 40%,
+    var(--accent-gold) 60%,
+    var(--accent-gold-light) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGold 4s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

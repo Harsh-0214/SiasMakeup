@@ -35,35 +35,12 @@ const services: ServiceTab[] = [
         note: "Makeup set prices: with or without lashes. Travel fee TBD.",
         items: [
           { name: "False Lash Application", price: "$5" },
-          {
-            name: "False Lash + Liner",
-            price: "$10",
-            includes: "Mascara, tightrope lining, false lashes",
-          },
-          {
-            name: "Brows Only",
-            price: "$20",
-            includes: "Filling + concealing + powder",
-          },
-          {
-            name: "Eye's Only",
-            price: "$30",
-            includes: "Light brows, eyeshadow, liner, mascara + lashes",
-          },
-          {
-            name: "Express Face",
-            price: "$45",
-            includes: "Skin prep, brows, mascara, wash of colour, light concealing + blush/bronzer, lipgloss",
-          },
-          {
-            name: "Full Face Makeup",
-            price: "$85",
-            includes: "Skin prep, colour correcting, brows, full eyes, concealer, foundation, bronzer/contour, blush & highlight, false lashes",
-          },
-          {
-            name: "SFX / Halloween / Theatre MU",
-            price: "$100",
-          },
+          { name: "False Lash + Liner", price: "$10", includes: "Mascara, tightrope lining, false lashes" },
+          { name: "Brows Only", price: "$20", includes: "Filling + concealing + powder" },
+          { name: "Eye's Only", price: "$30", includes: "Light brows, eyeshadow, liner, mascara + lashes" },
+          { name: "Express Face", price: "$45", includes: "Skin prep, brows, mascara, wash of colour, light concealing + blush/bronzer, lipgloss" },
+          { name: "Full Face Makeup", price: "$85", includes: "Skin prep, colour correcting, brows, full eyes, concealer, foundation, bronzer/contour, blush & highlight, false lashes" },
+          { name: "SFX / Halloween / Theatre MU", price: "$100" },
         ],
       },
     ],
@@ -132,21 +109,9 @@ const services: ServiceTab[] = [
         title: "Grooming Packages",
         note: "Travel + kit fee to be determined upon booking.",
         items: [
-          {
-            name: "Basic Grooming (Single Look / Event)",
-            price: "$50",
-            includes: "Skin prep, light concealer, anti-shine products, beard & eyebrow grooming + basic hair styling",
-          },
-          {
-            name: "Headshots / Photography (1–2 Looks)",
-            price: "$100",
-            includes: "Skin prep, concealer, beard & eyebrow grooming, anti-shine products + hair styling",
-          },
-          {
-            name: "Wedding Day Grooming",
-            price: "$120",
-            includes: "Skin prep, light foundation/concealer, beard & eyebrow grooming, anti-shine products, hair styling + touch up kit",
-          },
+          { name: "Basic Grooming (Single Look / Event)", price: "$50", includes: "Skin prep, light concealer, anti-shine products, beard & eyebrow grooming + basic hair styling" },
+          { name: "Headshots / Photography (1–2 Looks)", price: "$100", includes: "Skin prep, concealer, beard & eyebrow grooming, anti-shine products + hair styling" },
+          { name: "Wedding Day Grooming", price: "$120", includes: "Skin prep, light foundation/concealer, beard & eyebrow grooming, anti-shine products, hair styling + touch up kit" },
         ],
       },
     ],
@@ -157,11 +122,7 @@ function ServiceRow({ item }: { item: ServiceItem }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div
-      style={{
-        borderBottom: "1px solid var(--border-subtle)",
-      }}
-    >
+    <div style={{ borderBottom: "1px solid var(--border-subtle)" }}>
       <button
         onClick={() => item.includes && setOpen(!open)}
         style={{
@@ -192,26 +153,18 @@ function ServiceRow({ item }: { item: ServiceItem }) {
               }}
             />
           )}
-          <span
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontSize: "0.82rem",
-              fontWeight: 500,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "var(--text-primary)",
-            }}
-          >
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-primary)" }}>
             {item.name}
           </span>
         </div>
         <span
           style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "1.3rem",
-            fontWeight: 600,
+            fontFamily: "var(--font-bodoni)",
+            fontSize: "1.4rem",
+            fontWeight: 400,
             color: item.price === "TBD" ? "var(--text-muted)" : "var(--accent-gold)",
             flexShrink: 0,
+            letterSpacing: "-0.01em",
           }}
         >
           {item.price ?? "—"}
@@ -219,25 +172,8 @@ function ServiceRow({ item }: { item: ServiceItem }) {
       </button>
 
       {item.includes && (
-        <div
-          style={{
-            maxHeight: open ? "200px" : "0",
-            overflow: "hidden",
-            transition: "max-height 300ms var(--ease-out)",
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontSize: "0.75rem",
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              color: "var(--text-muted)",
-              paddingBottom: "1rem",
-              paddingLeft: "1.5rem",
-              lineHeight: 1.7,
-            }}
-          >
+        <div style={{ maxHeight: open ? "200px" : "0", overflow: "hidden", transition: "max-height 300ms var(--ease-out)" }}>
+          <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.75rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--text-muted)", paddingBottom: "1rem", paddingLeft: "1.5rem", lineHeight: 1.7 }}>
             <span style={{ color: "var(--earth-clay)", fontWeight: 600 }}>Includes: </span>
             {item.includes}
           </p>
@@ -277,69 +213,49 @@ export default function Services() {
     <section
       id="services"
       style={{
-        padding: "7rem clamp(2rem, 5vw, 5rem)",
+        padding: "8rem clamp(2rem, 5vw, 5rem)",
         backgroundColor: "var(--bg-secondary)",
         borderTop: "1px solid var(--border-subtle)",
         borderBottom: "1px solid var(--border-subtle)",
       }}
     >
       <div ref={ref}>
-        {/* Header */}
         <div
           data-reveal
           style={{
             opacity: 0,
-            transform: "translateY(20px)",
-            transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+            transform: "translateY(24px)",
+            transition: "opacity 700ms var(--ease-out), transform 700ms var(--ease-out)",
             textAlign: "left",
             marginBottom: "3.5rem",
           }}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontSize: "0.65rem",
-              fontWeight: 500,
-              letterSpacing: "0.3em",
-              textTransform: "uppercase",
-              color: "var(--accent-gold)",
-              marginBottom: "1rem",
-            }}
-          >
+          <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.6rem", fontWeight: 500, letterSpacing: "0.32em", textTransform: "uppercase", color: "var(--accent-gold)", marginBottom: "1rem" }}>
             Pricing
           </p>
           <h2
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(2rem, 5vw, 3rem)",
+              fontFamily: "var(--font-bodoni)",
+              fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
               fontWeight: 400,
-              letterSpacing: "0.06em",
+              letterSpacing: "-0.01em",
               textTransform: "uppercase",
               color: "var(--text-primary)",
-              lineHeight: 1.1,
+              lineHeight: 1,
               marginBottom: "0.75rem",
             }}
           >
             Services &amp; Rates
           </h2>
-          <div
-            style={{
-              width: "40px",
-              height: "1px",
-              background: "var(--accent-gold)",
-              opacity: 0.6,
-              margin: "0",
-            }}
-          />
+          <div style={{ width: "40px", height: "1px", background: "var(--accent-gold)", opacity: 0.7, margin: "0" }} />
         </div>
 
-        {/* Tabs */}
         <div
           data-reveal
           style={{
             opacity: 0,
-            transform: "translateY(20px)",
-            transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+            transform: "translateY(24px)",
+            transition: "opacity 700ms var(--ease-out), transform 700ms var(--ease-out)",
             display: "flex",
             gap: "0",
             marginBottom: "3rem",
@@ -373,13 +289,12 @@ export default function Services() {
           ))}
         </div>
 
-        {/* Service categories */}
         <div
           data-reveal
           style={{
             opacity: 0,
-            transform: "translateY(20px)",
-            transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+            transform: "translateY(24px)",
+            transition: "opacity 700ms var(--ease-out), transform 700ms var(--ease-out)",
             display: "flex",
             flexDirection: "column",
             gap: "2.5rem",
@@ -388,60 +303,23 @@ export default function Services() {
           {activeService.categories.map((cat) => (
             <div key={cat.id}>
               <div style={{ marginBottom: "0.5rem" }}>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "1.5rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "var(--text-primary)",
-                    marginBottom: "0.25rem",
-                  }}
-                >
+                <h3 style={{ fontFamily: "var(--font-bodoni)", fontSize: "1.6rem", fontWeight: 400, letterSpacing: "-0.01em", textTransform: "uppercase", color: "var(--text-primary)", marginBottom: "0.25rem" }}>
                   {cat.title}
                 </h3>
                 {cat.subtitle && (
-                  <p
-                    style={{
-                      fontFamily: "var(--font-inter)",
-                      fontSize: "0.7rem",
-                      letterSpacing: "0.1em",
-                      color: "var(--earth-clay)",
-                      fontStyle: "italic",
-                      marginBottom: "0.75rem",
-                    }}
-                  >
+                  <p style={{ fontFamily: "var(--font-inter)", fontSize: "0.7rem", letterSpacing: "0.1em", color: "var(--earth-clay)", fontStyle: "italic", marginBottom: "0.75rem" }}>
                     * {cat.subtitle}
                   </p>
                 )}
-                <div
-                  style={{
-                    width: "28px",
-                    height: "1px",
-                    background: "var(--accent-gold)",
-                    opacity: 0.5,
-                    marginBottom: "0.25rem",
-                  }}
-                />
+                <div style={{ width: "28px", height: "1px", background: "var(--accent-gold)", opacity: 0.5, marginBottom: "0.25rem" }} />
               </div>
-
               <div>
                 {cat.items.map((item) => (
                   <ServiceRow key={item.name} item={item} />
                 ))}
               </div>
-
               {cat.note && (
-                <p
-                  style={{
-                    marginTop: "0.75rem",
-                    fontFamily: "var(--font-inter)",
-                    fontSize: "0.7rem",
-                    color: "var(--text-muted)",
-                    fontStyle: "italic",
-                  }}
-                >
+                <p style={{ marginTop: "0.75rem", fontFamily: "var(--font-inter)", fontSize: "0.7rem", color: "var(--text-muted)", fontStyle: "italic" }}>
                   * {cat.note}
                 </p>
               )}
@@ -449,13 +327,12 @@ export default function Services() {
           ))}
         </div>
 
-        {/* Book CTA */}
         <div
           data-reveal
           style={{
             opacity: 0,
-            transform: "translateY(20px)",
-            transition: "opacity 600ms var(--ease-out), transform 600ms var(--ease-out)",
+            transform: "translateY(24px)",
+            transition: "opacity 700ms var(--ease-out), transform 700ms var(--ease-out)",
             textAlign: "left",
             marginTop: "3.5rem",
             padding: "2.5rem",
@@ -463,48 +340,31 @@ export default function Services() {
             backgroundColor: "var(--bg-surface)",
           }}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "1.2rem",
-              fontStyle: "italic",
-              color: "var(--text-secondary)",
-              marginBottom: "1.5rem",
-            }}
-          >
+          <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", fontStyle: "italic", color: "var(--text-secondary)", marginBottom: "1.5rem" }}>
             Ready to book your appointment?
           </p>
           <a
             href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
             style={{
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: "0.875rem 2.5rem",
+              padding: "1rem 2.75rem",
               backgroundColor: "transparent",
               color: "var(--accent-gold)",
               border: "1px solid var(--accent-gold)",
               fontFamily: "var(--font-inter)",
-              fontSize: "0.7rem",
+              fontSize: "0.65rem",
               fontWeight: 600,
-              letterSpacing: "0.2em",
+              letterSpacing: "0.22em",
               textTransform: "uppercase",
               textDecoration: "none",
               transition: "background-color 200ms var(--ease-out), color 200ms var(--ease-out), transform 160ms var(--ease-out)",
               cursor: "pointer",
             }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-gold)";
-              (e.currentTarget as HTMLElement).style.color = "var(--bg-primary)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
-            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-gold)"; (e.currentTarget as HTMLElement).style.color = "var(--bg-primary)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)"; }}
             onMouseDown={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(0.97)")}
             onMouseUp={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
           >
