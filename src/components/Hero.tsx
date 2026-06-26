@@ -1,29 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import BotanicalAccent from "./BotanicalAccent";
 
 const MARQUEE_TEXT =
   "Bridal · Editorial · SFX & Theatre · Everyday Glam · Men's Grooming · GTA & Beyond · Bridal Parties · On-Location · ";
 
 export default function Hero() {
-  const bgRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 80);
-
-    const onScroll = () => {
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translateY(${window.scrollY * 0.3}px)`;
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("scroll", onScroll);
-    };
+    return () => clearTimeout(t);
   }, []);
 
   return (
@@ -37,22 +26,22 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
+      {/* Static gradient background — no scroll listener */}
       <div
-        ref={bgRef}
         aria-hidden
         style={{
           position: "absolute",
-          inset: "-30%",
+          inset: 0,
           background: `
-            radial-gradient(ellipse 70% 55% at 65% 30%, rgba(139,115,85,0.12) 0%, transparent 65%),
-            radial-gradient(ellipse 45% 65% at 15% 75%, rgba(201,166,107,0.07) 0%, transparent 60%),
-            radial-gradient(ellipse 35% 45% at 85% 75%, rgba(100,82,55,0.09) 0%, transparent 50%),
-            linear-gradient(175deg, var(--bg-primary) 0%, #0b0a08 100%)
+            radial-gradient(ellipse 65% 50% at 60% 25%, rgba(139,115,85,0.1) 0%, transparent 60%),
+            radial-gradient(ellipse 40% 55% at 10% 80%, rgba(90,122,74,0.08) 0%, transparent 55%),
+            radial-gradient(ellipse 30% 40% at 88% 75%, rgba(100,82,55,0.07) 0%, transparent 50%),
+            linear-gradient(175deg, var(--bg-primary) 0%, var(--bg-gradient-end) 100%)
           `,
-          willChange: "transform",
         }}
       />
 
+      {/* Decorative rule */}
       <div
         aria-hidden
         style={{
@@ -62,10 +51,11 @@ export default function Hero() {
           right: 0,
           height: "1px",
           background:
-            "linear-gradient(90deg, transparent 0%, var(--border-subtle) 25%, var(--border-subtle) 75%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, var(--border-subtle) 30%, var(--border-subtle) 70%, transparent 100%)",
         }}
       />
 
+      {/* SM watermark */}
       <div
         aria-hidden
         style={{
@@ -79,7 +69,7 @@ export default function Hero() {
           lineHeight: 0.85,
           letterSpacing: "-0.04em",
           color: "transparent",
-          WebkitTextStroke: "1px rgba(201,166,107,0.065)",
+          WebkitTextStroke: "1px rgba(201,166,107,0.055)",
           userSelect: "none",
           pointerEvents: "none",
         }}
@@ -87,6 +77,38 @@ export default function Hero() {
         SM
       </div>
 
+      {/* Botanical — bottom left */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          bottom: "5.5rem",
+          left: "clamp(1rem, 3vw, 3rem)",
+          color: "var(--accent-sage)",
+          opacity: 0.2,
+          pointerEvents: "none",
+        }}
+      >
+        <BotanicalAccent size={120} variant="branch" />
+      </div>
+
+      {/* Botanical — top right (inverted) */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "5rem",
+          right: "clamp(0.75rem, 2vw, 2rem)",
+          color: "var(--accent-sage)",
+          opacity: 0.13,
+          pointerEvents: "none",
+          transform: "rotate(160deg) scaleX(-1)",
+        }}
+      >
+        <BotanicalAccent size={72} variant="sprig" />
+      </div>
+
+      {/* Main content */}
       <div
         style={{
           position: "relative",
@@ -98,7 +120,26 @@ export default function Hero() {
           padding: "calc(72px + 6vh) clamp(2.5rem, 8vw, 9rem) 5rem",
         }}
       >
-        <div style={{ overflow: "hidden", marginBottom: "1.75rem" }}>
+        {/* Eyebrow */}
+        <div
+          style={{
+            overflow: "hidden",
+            marginBottom: "1.75rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+          }}
+        >
+          <div
+            style={{
+              width: "24px",
+              height: "1px",
+              background: "var(--accent-sage)",
+              flexShrink: 0,
+              opacity: loaded ? 0.85 : 0,
+              transition: loaded ? "opacity 0.7s var(--ease-out) 0.05s" : "none",
+            }}
+          />
           <p
             style={{
               fontFamily: "var(--font-inter)",
@@ -115,13 +156,14 @@ export default function Hero() {
           </p>
         </div>
 
+        {/* Gold-to-sage rule */}
         <div
           aria-hidden
           style={{
             width: "52px",
             height: "1px",
-            background: "var(--accent-gold)",
-            opacity: 0.85,
+            background: "linear-gradient(90deg, var(--accent-gold), var(--accent-sage))",
+            opacity: 0.9,
             marginBottom: "2.25rem",
             transformOrigin: "left",
             transform: loaded ? "scaleX(1)" : "scaleX(0)",
@@ -129,6 +171,7 @@ export default function Hero() {
           }}
         />
 
+        {/* Headline */}
         <div style={{ marginBottom: "1.75rem" }}>
           <div style={{ overflow: "hidden" }}>
             <h1
@@ -170,6 +213,7 @@ export default function Hero() {
           </div>
         </div>
 
+        {/* Tagline */}
         <div style={{ overflow: "hidden", marginBottom: "3rem" }}>
           <p
             style={{
@@ -187,6 +231,7 @@ export default function Hero() {
           </p>
         </div>
 
+        {/* CTAs */}
         <div
           style={{
             display: "flex",
@@ -257,8 +302,8 @@ export default function Hero() {
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold)";
+              (e.currentTarget as HTMLElement).style.color = "var(--accent-sage)";
+              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-sage)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
@@ -276,6 +321,7 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Scroll indicator */}
       <button
         onClick={() => document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" })}
         aria-label="Scroll to about section"
@@ -297,7 +343,7 @@ export default function Hero() {
           animation: "bobDown 2.5s ease-in-out infinite",
           opacity: loaded ? 1 : 0,
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-gold)")}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-sage)")}
         onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
       >
         <span
@@ -314,14 +360,15 @@ export default function Hero() {
         <ChevronDown size={14} strokeWidth={1.2} />
       </button>
 
+      {/* Marquee strip — sage tint */}
       <div
         style={{
           position: "relative",
           zIndex: 1,
-          borderTop: "1px solid var(--border-subtle)",
+          borderTop: "1px solid var(--border-sage)",
           overflow: "hidden",
-          padding: "0.9rem 0",
-          backgroundColor: "rgba(0,0,0,0.18)",
+          padding: "0.875rem 0",
+          backgroundColor: "var(--accent-sage-muted)",
         }}
       >
         <div
@@ -341,9 +388,8 @@ export default function Hero() {
                 fontWeight: 500,
                 letterSpacing: "0.3em",
                 textTransform: "uppercase",
-                color: "var(--text-muted)",
+                color: "var(--accent-sage)",
                 whiteSpace: "nowrap",
-                paddingRight: "0",
               }}
             >
               {text}
