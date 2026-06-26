@@ -69,7 +69,7 @@ export default function Hero() {
           lineHeight: 0.85,
           letterSpacing: "-0.04em",
           color: "transparent",
-          WebkitTextStroke: "1px rgba(201,166,107,0.055)",
+          WebkitTextStroke: "1px rgba(45,90,39,0.07)",
           userSelect: "none",
           pointerEvents: "none",
         }}
@@ -85,11 +85,11 @@ export default function Hero() {
           bottom: "5.5rem",
           left: "clamp(1rem, 3vw, 3rem)",
           color: "var(--accent-sage)",
-          opacity: 0.2,
+          opacity: 0.38,
           pointerEvents: "none",
         }}
       >
-        <BotanicalAccent size={120} variant="branch" />
+        <BotanicalAccent size={160} variant="branch" />
       </div>
 
       {/* Botanical — top right (inverted) */}
@@ -100,12 +100,28 @@ export default function Hero() {
           top: "5rem",
           right: "clamp(0.75rem, 2vw, 2rem)",
           color: "var(--accent-sage)",
-          opacity: 0.13,
+          opacity: 0.28,
           pointerEvents: "none",
           transform: "rotate(160deg) scaleX(-1)",
         }}
       >
-        <BotanicalAccent size={72} variant="sprig" />
+        <BotanicalAccent size={110} variant="sprig" />
+      </div>
+
+      {/* Botanical — mid right */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "50%",
+          right: "clamp(0.5rem, 1.5vw, 1.5rem)",
+          color: "var(--accent-sage)",
+          opacity: 0.2,
+          pointerEvents: "none",
+          transform: "translateY(-50%) rotate(30deg)",
+        }}
+      >
+        <BotanicalAccent size={70} variant="leaf" />
       </div>
 
       {/* Main content */}
@@ -251,8 +267,8 @@ export default function Hero() {
               display: "inline-flex",
               alignItems: "center",
               padding: "1rem 2.75rem",
-              backgroundColor: "var(--accent-gold)",
-              color: "var(--bg-primary)",
+              backgroundColor: "var(--accent-sage)",
+              color: "#fff",
               fontFamily: "var(--font-inter)",
               fontSize: "0.65rem",
               fontWeight: 600,
@@ -263,10 +279,10 @@ export default function Hero() {
               cursor: "pointer",
             }}
             onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-gold-light)")
+              ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-sage-dark)")
             }
             onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-gold)")
+              ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-sage)")
             }
             onMouseDown={(e) =>
               ((e.currentTarget as HTMLElement).style.transform = "scale(0.97)")

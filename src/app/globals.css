@@ -1,71 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #0e0d0b;
-  --bg-secondary: #151310;
-  --bg-surface: #1c1a16;
-  --bg-elevated: #242018;
-  --bg-gradient-end: #070604;
+  /* Cream botanical */
+  --bg-primary: #f5efe3;
+  --bg-secondary: #ede6d4;
+  --bg-surface: #faf6ee;
+  --bg-elevated: #ffffff;
+  --bg-gradient-end: #e8ddc8;
 
-  --text-primary: #f2ebe0;
-  --text-secondary: #c2b298;
-  --text-muted: #7a6e60;
+  --text-primary: #18120a;
+  --text-secondary: #3a2c18;
+  --text-muted: #7a6850;
 
-  --accent-gold: #c9a66b;
-  --accent-gold-light: #e0c08a;
-  --accent-gold-dark: #9e7e48;
+  --accent-gold: #8a6020;
+  --accent-gold-light: #b07a28;
+  --accent-gold-dark: #5a4010;
 
-  --accent-sage: #8aaa78;
-  --accent-sage-dark: #5a7a4a;
-  --accent-sage-light: #b0cc9e;
-  --accent-sage-muted: rgba(138, 170, 120, 0.1);
+  --accent-sage: #2d5a27;
+  --accent-sage-dark: #1a3a15;
+  --accent-sage-light: #4a7a42;
+  --accent-sage-muted: rgba(45, 90, 39, 0.1);
 
-  --accent-rose: #c4887a;
-  --accent-rose-dark: #9a5e52;
-  --accent-rose-muted: rgba(196, 136, 122, 0.1);
+  --accent-rose: #8a4a3e;
+  --accent-rose-dark: #6a3230;
+  --accent-rose-muted: rgba(138, 74, 62, 0.08);
 
-  --earth-warm: #8b7355;
-  --earth-clay: #a0876a;
+  --earth-warm: #8a7050;
+  --earth-clay: #a08860;
 
-  --border-subtle: rgba(201, 166, 107, 0.08);
-  --border-medium: rgba(201, 166, 107, 0.2);
-  --border-sage: rgba(138, 170, 120, 0.22);
+  --border-subtle: rgba(45, 90, 39, 0.12);
+  --border-medium: rgba(45, 90, 39, 0.28);
+  --border-sage: rgba(45, 90, 39, 0.22);
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-/* Light mode — warm botanical studio */
-[data-theme="light"] {
-  --bg-primary: #f2ece0;
-  --bg-secondary: #e6dece;
-  --bg-surface: #faf6ee;
-  --bg-elevated: #ffffff;
-  --bg-gradient-end: #cec8b8;
-
-  --text-primary: #18120a;
-  --text-secondary: #3a2a16;
-  --text-muted: #786858;
-
-  --accent-gold: #7a5010;
-  --accent-gold-light: #a87830;
-  --accent-gold-dark: #5a3a08;
-
-  --accent-sage: #4a7038;
-  --accent-sage-dark: #345228;
-  --accent-sage-light: #6a9058;
-  --accent-sage-muted: rgba(74, 112, 56, 0.1);
-
-  --accent-rose: #9a5040;
-  --accent-rose-dark: #7a3828;
-  --accent-rose-muted: rgba(154, 80, 64, 0.08);
-
-  --earth-warm: #7a6040;
-  --earth-clay: #8a6848;
-
-  --border-subtle: rgba(55, 38, 15, 0.1);
-  --border-medium: rgba(55, 38, 15, 0.2);
-  --border-sage: rgba(74, 112, 56, 0.18);
 }
 
 * { box-sizing: border-box; }
@@ -83,9 +51,9 @@ body {
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: var(--accent-sage-dark); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--accent-sage); border-radius: 2px; }
 
-/* ── Animations ─────────────────────────────────────────── */
+/* ── Animations ─────────────────────────────────────── */
 
 @keyframes slideUpReveal {
   from { transform: translateY(110%); opacity: 0; }

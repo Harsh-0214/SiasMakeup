@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import InstagramIcon from "./InstagramIcon";
 import LogoMark from "./LogoMark";
 
@@ -15,7 +15,6 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -25,20 +24,8 @@ export default function Navbar() {
       setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    const stored = localStorage.getItem("theme") as "dark" | "light" | null;
-    if (stored) {
-      setTheme(stored);
-      document.documentElement.setAttribute("data-theme", stored);
-    }
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
-  };
 
   const handleNavClick = (href: string) => {
     setOpen(false);
@@ -46,11 +33,7 @@ export default function Navbar() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const navBg = scrolled
-    ? theme === "light"
-      ? "rgba(234,229,220,0.94)"
-      : "rgba(16,15,13,0.94)"
-    : "transparent";
+  const navBg = scrolled ? "rgba(245, 239, 227, 0.95)" : "transparent";
 
   return (
     <>
@@ -72,6 +55,7 @@ export default function Navbar() {
           borderBottom: scrolled ? "1px solid var(--border-subtle)" : "1px solid transparent",
         }}
       >
+        {/* Logo */}
         <a
           href="#"
           onClick={(e) => {
@@ -84,6 +68,7 @@ export default function Navbar() {
           <LogoMark size={34} showTagline={false} />
         </a>
 
+        {/* Desktop nav */}
         <nav
           style={{ display: "flex", alignItems: "center", gap: "2rem" }}
           className="hidden md:flex"
@@ -105,41 +90,14 @@ export default function Navbar() {
                 transition: "color 200ms var(--ease-out)",
                 padding: "4px 0",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-gold)")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-sage)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
             >
               {link.label}
             </button>
           ))}
 
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle light/dark mode"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "34px",
-              height: "34px",
-              borderRadius: "50%",
-              border: "1px solid var(--border-medium)",
-              background: "none",
-              cursor: "pointer",
-              color: "var(--text-secondary)",
-              transition: "color 200ms var(--ease-out), border-color 200ms var(--ease-out)",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--border-medium)";
-            }}
-          >
-            {theme === "dark" ? <Sun size={14} strokeWidth={1.5} /> : <Moon size={14} strokeWidth={1.5} />}
-          </button>
-
+          {/* Instagram */}
           <a
             href="https://www.instagram.com/siasmakeup"
             target="_blank"
@@ -157,8 +115,8 @@ export default function Navbar() {
               transition: "color 200ms var(--ease-out), border-color 200ms var(--ease-out)",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold)";
+              (e.currentTarget as HTMLElement).style.color = "var(--accent-sage)";
+              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-sage)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
@@ -169,6 +127,7 @@ export default function Navbar() {
           </a>
         </nav>
 
+        {/* Mobile hamburger */}
         <button
           className="md:hidden"
           onClick={() => setOpen(!open)}
@@ -188,27 +147,29 @@ export default function Navbar() {
         </button>
       </header>
 
+      {/* Scroll progress bar — green vine gradient */}
       <div
         aria-hidden
         style={{
           position: "fixed",
           top: "72px",
           left: 0,
-          height: "1px",
+          height: "2px",
           width: `${progress}%`,
-          background: "linear-gradient(90deg, var(--accent-gold-dark), var(--accent-gold), var(--accent-gold-light))",
+          background: "linear-gradient(90deg, var(--accent-sage-dark), var(--accent-sage), var(--accent-sage-light))",
           zIndex: 101,
           transition: "width 80ms linear",
           transformOrigin: "left",
         }}
       />
 
+      {/* Mobile menu overlay */}
       <div
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 99,
-          backgroundColor: theme === "light" ? "rgba(234,229,220,0.97)" : "rgba(16,15,13,0.97)",
+          backgroundColor: "rgba(245,239,227,0.97)",
           backdropFilter: "blur(24px)",
           display: "flex",
           flexDirection: "column",
@@ -243,7 +204,7 @@ export default function Navbar() {
               padding: "0.6rem 0",
               animation: open ? `slideUpReveal 0.5s var(--ease-out) ${i * 0.06 + 0.1}s both` : undefined,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-gold)")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-sage)")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
           >
             {link.label}
@@ -252,9 +213,6 @@ export default function Navbar() {
 
         <div style={{
           marginTop: "2.5rem",
-          display: "flex",
-          alignItems: "center",
-          gap: "1.5rem",
           animation: open ? "fadeIn 0.5s var(--ease-out) 0.35s both" : undefined,
         }}>
           <a
@@ -268,33 +226,13 @@ export default function Navbar() {
               fontFamily: "var(--font-inter)",
               fontSize: "0.7rem",
               letterSpacing: "0.12em",
-              color: "var(--accent-gold)",
+              color: "var(--accent-sage)",
               textDecoration: "none",
             }}
           >
             <InstagramIcon size={14} strokeWidth={1.5} />
             @siasmakeup
           </a>
-
-          <button
-            onClick={toggleTheme}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.4rem",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "var(--font-inter)",
-              fontSize: "0.65rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--text-muted)",
-            }}
-          >
-            {theme === "dark" ? <Sun size={13} strokeWidth={1.5} /> : <Moon size={13} strokeWidth={1.5} />}
-            {theme === "dark" ? "Light" : "Dark"}
-          </button>
         </div>
       </div>
     </>

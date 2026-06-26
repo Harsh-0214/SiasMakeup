@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter, Bodoni_Moda } from "next/font/google";
 import "./globals.css";
+import SiteVine from "@/components/SiteVine";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -41,7 +42,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${bodoni.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <SiteVine />
+        {children}
+      </body>
     </html>
   );
 }
