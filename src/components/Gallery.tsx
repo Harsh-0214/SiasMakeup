@@ -1,16 +1,22 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import InstagramIcon from "./InstagramIcon";
 
 const galleryItems = [
-  { label: "Bridal", aspect: "3/4" },
-  { label: "Editorial", aspect: "3/4" },
-  { label: "Full Face", aspect: "3/4" },
-  { label: "SFX", aspect: "3/4" },
-  { label: "Bridal Party", aspect: "3/4" },
-  { label: "Men's Grooming", aspect: "3/4" },
+  { label: "Bridal", accent: "gold" },
+  { label: "Editorial", accent: "sage" },
+  { label: "Full Face", accent: "rose" },
+  { label: "SFX", accent: "gold" },
+  { label: "Bridal Party", accent: "sage" },
+  { label: "Men's Grooming", accent: "rose" },
 ];
+
+const accentVars: Record<string, { border: string; label: string }> = {
+  gold: { border: "var(--accent-gold)", label: "var(--accent-gold)" },
+  sage: { border: "var(--accent-sage)", label: "var(--accent-sage)" },
+  rose: { border: "var(--accent-rose)", label: "var(--accent-rose)" },
+};
 
 export default function Gallery() {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,6 +44,7 @@ export default function Gallery() {
   return (
     <section id="gallery" style={{ padding: "8rem clamp(2rem, 5vw, 5rem)" }}>
       <div ref={ref}>
+        {/* Header */}
         <div
           data-reveal
           style={{
@@ -79,8 +86,8 @@ export default function Gallery() {
             style={{
               width: "40px",
               height: "1px",
-              background: "var(--accent-gold)",
-              opacity: 0.7,
+              background: "linear-gradient(90deg, var(--accent-gold), var(--accent-sage))",
+              opacity: 0.8,
               margin: "0 0 1.25rem",
             }}
           />
@@ -97,6 +104,7 @@ export default function Gallery() {
           </p>
         </div>
 
+        {/* Grid */}
         <div
           style={{
             display: "grid",
@@ -115,11 +123,12 @@ export default function Gallery() {
                 transition: `opacity 700ms var(--ease-out) ${i * 70}ms, transform 700ms var(--ease-out) ${i * 70}ms`,
               }}
             >
-              <GalleryCard label={item.label} aspect={item.aspect} index={i} />
+              <GalleryCard label={item.label} accent={item.accent} index={i} />
             </div>
           ))}
         </div>
 
+        {/* Instagram CTA */}
         <div
           data-reveal
           style={{
@@ -152,8 +161,8 @@ export default function Gallery() {
                 "color 250ms var(--ease-out), border-color 250ms var(--ease-out), transform 180ms var(--ease-out)",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "var(--accent-gold)";
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold)";
+              (e.currentTarget as HTMLElement).style.color = "var(--accent-sage)";
+              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-sage)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
@@ -177,84 +186,99 @@ export default function Gallery() {
 
 function GalleryCard({
   label,
-  aspect,
+  accent,
   index,
 }: {
   label: string;
-  aspect: string;
+  accent: string;
   index: number;
 }) {
-  const gradients = [
-    "linear-gradient(135deg, #2a2218 0%, #3d3025 40%, #1e1a14 100%)",
-    "linear-gradient(150deg, #1a1c18 0%, #2d2820 50%, #241f18 100%)",
-    "linear-gradient(120deg, #1e1a16 0%, #382e22 45%, #1a1610 100%)",
-    "linear-gradient(160deg, #221d18 0%, #302820 50%, #1e1814 100%)",
-    "linear-gradient(130deg, #201c14 0%, #3a3020 45%, #1a1810 100%)",
-    "linear-gradient(145deg, #1c1a1a 0%, #2e2420 50%, #1a1416 100%)",
+  const [hovered, setHovered] = useState(false);
+  const { border, label: labelColor } = accentVars[accent] ?? accentVars.gold;
+
+  const patternColors = [
+    ["rgba(139,115,85,0.18)", "rgba(138,170,120,0.1)"],
+    ["rgba(138,170,120,0.18)", "rgba(139,115,85,0.1)"],
+    ["rgba(196,136,122,0.16)", "rgba(139,115,85,0.12)"],
+    ["rgba(139,115,85,0.14)", "rgba(196,136,122,0.1)"],
+    ["rgba(138,170,120,0.15)", "rgba(196,136,122,0.1)"],
+    ["rgba(196,136,122,0.14)", "rgba(138,170,120,0.1)"],
   ];
+  const [c1, c2] = patternColors[index % patternColors.length];
 
   return (
     <div
       style={{
         position: "relative",
-        aspectRatio: aspect,
+        aspectRatio: "3/4",
         overflow: "hidden",
         backgroundColor: "var(--bg-surface)",
-        border: "1px solid var(--border-subtle)",
+        border: `1px solid ${hovered ? border : "var(--border-subtle)"}`,
         cursor: "pointer",
-        transition: "transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out)",
-        transformStyle: "preserve-3d",
+        transform: hovered ? "translateY(-4px) scale(1.015)" : "translateY(0) scale(1)",
+        boxShadow: hovered ? `0 16px 40px rgba(0,0,0,0.22), 0 0 0 1px ${border}22` : "none",
+        transition: "transform 380ms var(--ease-out), box-shadow 380ms var(--ease-out), border-color 250ms var(--ease-out)",
       }}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 14;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 14;
-        e.currentTarget.style.transform = `perspective(900px) rotateX(${-y}deg) rotateY(${x}deg)`;
-        e.currentTarget.style.boxShadow = `${-x * 1.5}px ${y * 1.5}px 40px rgba(0,0,0,0.4)`;
-        e.currentTarget.style.transition = "transform 0ms, box-shadow 0ms";
-        const overlay = e.currentTarget.querySelector<HTMLElement>(".gallery-overlay");
-        if (overlay) overlay.style.opacity = "1";
-        e.currentTarget.style.borderColor = "var(--border-medium)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
-        e.currentTarget.style.boxShadow = "none";
-        e.currentTarget.style.transition =
-          "transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out)";
-        const overlay = e.currentTarget.querySelector<HTMLElement>(".gallery-overlay");
-        if (overlay) overlay.style.opacity = "0";
-        e.currentTarget.style.borderColor = "var(--border-subtle)";
-      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
+      {/* Background gradient */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: gradients[index % gradients.length],
+          background: `linear-gradient(135deg, ${c1} 0%, var(--bg-elevated) 50%, ${c2} 100%)`,
+          backgroundColor: "var(--bg-surface)",
         }}
       />
 
+      {/* Dot texture */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage:
-            "radial-gradient(circle, rgba(201,166,107,0.07) 1px, transparent 1px)",
+          backgroundImage: `radial-gradient(circle, ${border}22 1px, transparent 1px)`,
           backgroundSize: "18px 18px",
+          opacity: hovered ? 1 : 0.5,
+          transition: "opacity 380ms var(--ease-out)",
         }}
       />
 
+      {/* Botanical line art */}
+      <svg
+        aria-hidden
+        viewBox="0 0 80 120"
+        fill="none"
+        style={{
+          position: "absolute",
+          bottom: "2rem",
+          right: "1rem",
+          width: "52px",
+          opacity: hovered ? 0.18 : 0.08,
+          color: border,
+          transition: "opacity 380ms var(--ease-out)",
+          pointerEvents: "none",
+        }}
+      >
+        <path d="M40 118 C40 95 38 65 36 38 C34 16 37 3 40 3" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M38 90 C28 78 12 72 3 58 C16 65 30 78 38 90Z" fill="currentColor" />
+        <path d="M38 90 C48 78 64 72 73 58 C60 65 46 78 38 90Z" fill="currentColor" opacity="0.7" />
+        <path d="M37 62 C26 50 9 43 1 28 C14 36 29 49 37 62Z" fill="currentColor" opacity="0.8" />
+        <path d="M37 62 C48 50 65 43 73 28 C60 36 45 49 37 62Z" fill="currentColor" opacity="0.6" />
+      </svg>
+
+      {/* Hover overlay */}
       <div
-        className="gallery-overlay"
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor: "rgba(16,15,13,0.78)",
+          backgroundColor: "rgba(14,13,11,0.72)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          opacity: 0,
+          gap: "0.5rem",
+          opacity: hovered ? 1 : 0,
           transition: "opacity 280ms var(--ease-out)",
         }}
       >
@@ -274,17 +298,19 @@ function GalleryCard({
           style={{
             width: "24px",
             height: "1px",
-            background: "var(--accent-gold)",
-            marginTop: "0.6rem",
+            background: labelColor,
           }}
         />
       </div>
 
+      {/* Bottom label chip */}
       <div
         style={{
           position: "absolute",
           bottom: "0.75rem",
           left: "0.75rem",
+          opacity: hovered ? 0 : 1,
+          transition: "opacity 200ms var(--ease-out)",
         }}
       >
         <span
@@ -295,8 +321,9 @@ function GalleryCard({
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "var(--text-muted)",
-            backgroundColor: "rgba(16,15,13,0.72)",
+            backgroundColor: "var(--bg-primary)",
             padding: "3px 8px",
+            border: `1px solid ${border}44`,
           }}
         >
           {label}

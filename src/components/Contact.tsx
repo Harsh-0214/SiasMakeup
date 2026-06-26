@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Mail, Phone } from "lucide-react";
 import InstagramIcon from "./InstagramIcon";
+import BotanicalAccent from "./BotanicalAccent";
 
 const contactLinks = [
   {
@@ -11,6 +12,10 @@ const contactLinks = [
     value: "@siasmakeup",
     href: "https://www.instagram.com/siasmakeup",
     sub: "Follow for the latest looks",
+    iconColor: "var(--accent-sage)",
+    borderColor: "var(--border-sage)",
+    bgColor: "var(--accent-sage-muted)",
+    hoverBorder: "var(--accent-sage)",
   },
   {
     icon: Mail,
@@ -18,6 +23,10 @@ const contactLinks = [
     value: "siasmakeup@hotmail.com",
     href: "mailto:siasmakeup@hotmail.com",
     sub: "For bookings & inquiries",
+    iconColor: "var(--accent-gold)",
+    borderColor: "var(--border-medium)",
+    bgColor: "rgba(201,166,107,0.07)",
+    hoverBorder: "var(--accent-gold)",
   },
   {
     icon: Phone,
@@ -25,6 +34,10 @@ const contactLinks = [
     value: "(437) 882-5076",
     href: "tel:+14378825076",
     sub: "Call or text to book",
+    iconColor: "var(--accent-rose)",
+    borderColor: "var(--accent-rose-muted)",
+    bgColor: "var(--accent-rose-muted)",
+    hoverBorder: "var(--accent-rose)",
   },
 ];
 
@@ -64,9 +77,28 @@ export default function Contact() {
         padding: "7rem clamp(2rem, 5vw, 5rem)",
         backgroundColor: "var(--bg-secondary)",
         borderTop: "1px solid var(--border-subtle)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Botanical accent — top right corner */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "3rem",
+          right: "2rem",
+          color: "var(--accent-sage)",
+          opacity: 0.12,
+          pointerEvents: "none",
+          transform: "rotate(20deg)",
+        }}
+      >
+        <BotanicalAccent size={100} variant="branch" />
+      </div>
+
       <div ref={ref}>
+        {/* Header */}
         <div
           data-reveal
           style={{
@@ -84,7 +116,7 @@ export default function Contact() {
               fontWeight: 500,
               letterSpacing: "0.3em",
               textTransform: "uppercase",
-              color: "var(--accent-gold)",
+              color: "var(--accent-sage)",
               marginBottom: "1rem",
             }}
           >
@@ -112,8 +144,8 @@ export default function Contact() {
             style={{
               width: "40px",
               height: "1px",
-              background: "var(--accent-gold)",
-              opacity: 0.6,
+              background: "linear-gradient(90deg, var(--accent-gold), var(--accent-sage))",
+              opacity: 0.8,
               margin: "0 0 1.25rem",
             }}
           />
@@ -123,8 +155,7 @@ export default function Contact() {
               fontSize: "0.875rem",
               lineHeight: 1.8,
               color: "var(--text-secondary)",
-              maxWidth: "600px",
-              margin: "0 auto",
+              maxWidth: "520px",
             }}
           >
             Ready to book or have questions? Reach out via any of the channels below.
@@ -132,6 +163,7 @@ export default function Contact() {
           </p>
         </div>
 
+        {/* Contact cards */}
         <div
           style={{
             display: "grid",
@@ -152,7 +184,7 @@ export default function Contact() {
                 style={{
                   opacity: 0,
                   transform: "translateY(20px)",
-                  transition: `opacity 600ms var(--ease-out) ${i * 80}ms, transform 600ms var(--ease-out) ${i * 80}ms, border-color 200ms var(--ease-out)`,
+                  transition: `opacity 600ms var(--ease-out) ${i * 80}ms, transform 600ms var(--ease-out) ${i * 80}ms, border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out)`,
                   display: "flex",
                   flexDirection: "column",
                   gap: "0.875rem",
@@ -163,21 +195,25 @@ export default function Contact() {
                   cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "var(--accent-gold)";
+                  (e.currentTarget as HTMLElement).style.borderColor = link.hoverBorder;
+                  (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 24px rgba(0,0,0,0.12)`;
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = "var(--border-subtle)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
                 }}
               >
+                {/* Icon container with per-channel color */}
                 <div
                   style={{
                     width: "44px",
                     height: "44px",
-                    border: "1px solid var(--border-medium)",
+                    border: `1px solid ${link.borderColor}`,
+                    backgroundColor: link.bgColor,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "var(--accent-gold)",
+                    color: link.iconColor,
                   }}
                 >
                   <Icon size={18} strokeWidth={1.5} />
@@ -191,8 +227,9 @@ export default function Contact() {
                       fontWeight: 500,
                       letterSpacing: "0.25em",
                       textTransform: "uppercase",
-                      color: "var(--text-muted)",
+                      color: link.iconColor,
                       marginBottom: "0.3rem",
+                      opacity: 0.8,
                     }}
                   >
                     {link.label}
@@ -224,6 +261,7 @@ export default function Contact() {
           })}
         </div>
 
+        {/* Socials */}
         <div
           data-reveal
           style={{
@@ -248,7 +286,7 @@ export default function Contact() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
+                alignItems: "flex-start",
                 gap: "0.25rem",
                 textDecoration: "none",
                 transition: "opacity 200ms var(--ease-out)",

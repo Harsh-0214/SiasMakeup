@@ -186,7 +186,7 @@ function ServiceRow({ item }: { item: ServiceItem }) {
               strokeWidth={1.5}
               style={{
                 flexShrink: 0,
-                color: "var(--accent-gold)",
+                color: "var(--accent-sage)",
                 transition: "transform 200ms var(--ease-out)",
                 transform: open ? "rotate(180deg)" : "rotate(0deg)",
               }}
@@ -238,7 +238,7 @@ function ServiceRow({ item }: { item: ServiceItem }) {
               lineHeight: 1.7,
             }}
           >
-            <span style={{ color: "var(--earth-clay)", fontWeight: 600 }}>Includes: </span>
+            <span style={{ color: "var(--accent-sage)", fontWeight: 600 }}>Includes: </span>
             {item.includes}
           </p>
         </div>
@@ -284,6 +284,7 @@ export default function Services() {
       }}
     >
       <div ref={ref}>
+        {/* Header */}
         <div
           data-reveal
           style={{
@@ -325,13 +326,14 @@ export default function Services() {
             style={{
               width: "40px",
               height: "1px",
-              background: "var(--accent-gold)",
-              opacity: 0.6,
+              background: "linear-gradient(90deg, var(--accent-gold), var(--accent-sage))",
+              opacity: 0.7,
               margin: "0",
             }}
           />
         </div>
 
+        {/* Tabs */}
         <div
           data-reveal
           style={{
@@ -363,6 +365,16 @@ export default function Services() {
                 color: activeTab === tab.id ? "var(--bg-primary)" : "var(--text-muted)",
                 transition: "background-color 200ms var(--ease-out), color 200ms var(--ease-out), transform 160ms var(--ease-out)",
               }}
+              onMouseEnter={(e) => {
+                if (activeTab !== tab.id) {
+                  e.currentTarget.style.color = "var(--accent-sage)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== tab.id) {
+                  e.currentTarget.style.color = "var(--text-muted)";
+                }
+              }}
               onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.97)")}
               onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
@@ -371,6 +383,7 @@ export default function Services() {
           ))}
         </div>
 
+        {/* Service categories */}
         <div
           data-reveal
           style={{
@@ -404,7 +417,7 @@ export default function Services() {
                       fontFamily: "var(--font-inter)",
                       fontSize: "0.7rem",
                       letterSpacing: "0.1em",
-                      color: "var(--earth-clay)",
+                      color: "var(--accent-sage)",
                       fontStyle: "italic",
                       marginBottom: "0.75rem",
                     }}
@@ -416,8 +429,8 @@ export default function Services() {
                   style={{
                     width: "28px",
                     height: "1px",
-                    background: "var(--accent-gold)",
-                    opacity: 0.5,
+                    background: "linear-gradient(90deg, var(--accent-gold), var(--accent-sage))",
+                    opacity: 0.6,
                     marginBottom: "0.25rem",
                   }}
                 />
@@ -446,6 +459,7 @@ export default function Services() {
           ))}
         </div>
 
+        {/* Book CTA */}
         <div
           data-reveal
           style={{
@@ -455,8 +469,8 @@ export default function Services() {
             textAlign: "left",
             marginTop: "3.5rem",
             padding: "2.5rem",
-            border: "1px solid var(--border-subtle)",
-            backgroundColor: "var(--bg-surface)",
+            border: "1px solid var(--border-sage)",
+            backgroundColor: "var(--accent-sage-muted)",
           }}
         >
           <p

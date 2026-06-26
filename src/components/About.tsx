@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import BotanicalAccent from "./BotanicalAccent";
 
 function useCountUp(target: number, shouldStart: boolean, duration = 1800) {
   const [value, setValue] = useState(0);
@@ -20,9 +21,9 @@ function useCountUp(target: number, shouldStart: boolean, duration = 1800) {
 }
 
 const stats = [
-  { numeric: 5, suffix: "+", label: "Years Experience" },
-  { numeric: 200, suffix: "+", label: "Happy Clients" },
-  { numeric: null, display: "GTA", label: "& Beyond" },
+  { numeric: 5, suffix: "+", label: "Years Experience", color: "var(--accent-gold)" },
+  { numeric: 200, suffix: "+", label: "Happy Clients", color: "var(--accent-sage)" },
+  { numeric: null, display: "GTA", label: "& Beyond", color: "var(--accent-rose)" },
 ];
 
 export default function About() {
@@ -52,7 +53,6 @@ export default function About() {
 
   const count0 = useCountUp(stats[0].numeric!, visible);
   const count1 = useCountUp(stats[1].numeric!, visible, 2200);
-
   const counts = [count0, count1, null];
 
   return (
@@ -69,6 +69,7 @@ export default function About() {
         }}
         className="lg:grid-cols-2"
       >
+        {/* Left */}
         <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
           <div
             data-reveal
@@ -78,6 +79,7 @@ export default function About() {
               transition: "opacity 700ms var(--ease-out), transform 700ms var(--ease-out)",
             }}
           >
+            {/* Monogram card */}
             <div
               style={{
                 width: "100%",
@@ -94,11 +96,28 @@ export default function About() {
                   position: "absolute",
                   inset: 0,
                   background: `
+                    radial-gradient(ellipse 70% 60% at 30% 40%, rgba(138,170,120,0.12) 0%, transparent 60%),
                     linear-gradient(135deg, rgba(139,115,85,0.15) 0%, transparent 55%),
                     linear-gradient(315deg, rgba(107,98,88,0.12) 0%, transparent 60%)
                   `,
                 }}
               />
+
+              {/* Botanical accent inside card */}
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  bottom: "0.5rem",
+                  right: "0.75rem",
+                  color: "var(--accent-sage)",
+                  opacity: 0.22,
+                  pointerEvents: "none",
+                }}
+              >
+                <BotanicalAccent size={64} variant="sprig" />
+              </div>
+
               <div
                 style={{
                   position: "absolute",
@@ -135,11 +154,14 @@ export default function About() {
                   Sia&apos;s Makeup Studio
                 </p>
               </div>
+
+              {/* Corner accents */}
               <div style={{ position: "absolute", top: "1.25rem", right: "1.25rem", width: "28px", height: "28px", borderTop: "1px solid var(--accent-gold)", borderRight: "1px solid var(--accent-gold)", opacity: 0.5 }} />
-              <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", width: "28px", height: "28px", borderBottom: "1px solid var(--accent-gold)", borderLeft: "1px solid var(--accent-gold)", opacity: 0.5 }} />
+              <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", width: "28px", height: "28px", borderBottom: "1px solid var(--accent-sage)", borderLeft: "1px solid var(--accent-sage)", opacity: 0.5 }} />
             </div>
           </div>
 
+          {/* Stats */}
           <div
             data-reveal
             style={{
@@ -158,14 +180,27 @@ export default function About() {
                   padding: "1.75rem 1rem",
                   textAlign: "center",
                   borderRight: i < stats.length - 1 ? "1px solid var(--border-subtle)" : "none",
+                  position: "relative",
                 }}
               >
+                {/* Colored top accent bar */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: "20%",
+                    right: "20%",
+                    height: "2px",
+                    background: stat.color,
+                    opacity: 0.7,
+                  }}
+                />
                 <p
                   style={{
                     fontFamily: "var(--font-bodoni)",
                     fontSize: "2.2rem",
                     fontWeight: 400,
-                    color: "var(--accent-gold)",
+                    color: stat.color,
                     lineHeight: 1,
                     marginBottom: "0.4rem",
                     letterSpacing: "-0.02em",
@@ -192,6 +227,7 @@ export default function About() {
           </div>
         </div>
 
+        {/* Right: text */}
         <div
           style={{
             display: "flex",
@@ -215,7 +251,7 @@ export default function About() {
                 fontWeight: 500,
                 letterSpacing: "0.32em",
                 textTransform: "uppercase",
-                color: "var(--accent-gold)",
+                color: "var(--accent-sage)",
                 marginBottom: "1.25rem",
               }}
             >
@@ -258,8 +294,8 @@ export default function About() {
               style={{
                 width: "40px",
                 height: "1px",
-                background: "var(--accent-gold)",
-                opacity: 0.7,
+                background: "linear-gradient(90deg, var(--accent-gold), var(--accent-sage))",
+                opacity: 0.8,
                 marginBottom: "1.5rem",
               }}
             />
@@ -291,12 +327,44 @@ export default function About() {
             </p>
           </div>
 
+          {/* Specialty tags */}
           <div
             data-reveal
             style={{
               opacity: 0,
               transform: "translateY(24px)",
-              transition: "opacity 700ms var(--ease-out) 280ms, transform 700ms var(--ease-out) 280ms",
+              transition: "opacity 700ms var(--ease-out) 260ms, transform 700ms var(--ease-out) 260ms",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.5rem",
+            }}
+          >
+            {["Bridal", "Editorial", "SFX", "Everyday Glam", "Men's Grooming", "On-Location"].map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontSize: "0.58rem",
+                  fontWeight: 500,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--accent-sage)",
+                  border: "1px solid var(--border-sage)",
+                  padding: "4px 10px",
+                  backgroundColor: "var(--accent-sage-muted)",
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div
+            data-reveal
+            style={{
+              opacity: 0,
+              transform: "translateY(24px)",
+              transition: "opacity 700ms var(--ease-out) 320ms, transform 700ms var(--ease-out) 320ms",
             }}
           >
             <a

@@ -2,6 +2,7 @@
 
 import InstagramIcon from "./InstagramIcon";
 import LogoMark from "./LogoMark";
+import BotanicalAccent from "./BotanicalAccent";
 
 export default function Footer() {
   return (
@@ -10,8 +11,27 @@ export default function Footer() {
         backgroundColor: "var(--bg-primary)",
         borderTop: "1px solid var(--border-subtle)",
         padding: "3.5rem clamp(2rem, 5vw, 5rem) 2.5rem",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Botanical watermark — bottom left */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "clamp(1rem, 3vw, 3rem)",
+          color: "var(--accent-sage)",
+          opacity: 0.1,
+          pointerEvents: "none",
+          transform: "translateY(20%)",
+        }}
+      >
+        <BotanicalAccent size={140} variant="branch" />
+      </div>
+
+      {/* Top row */}
       <div
         style={{
           display: "flex",
@@ -22,10 +42,25 @@ export default function Footer() {
           marginBottom: "2.5rem",
           paddingBottom: "2.5rem",
           borderBottom: "1px solid var(--border-subtle)",
+          position: "relative",
         }}
       >
-        <LogoMark size={44} showTagline />
+        {/* LogoMark + botanical leaf */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+          <LogoMark size={44} showTagline />
+          <div
+            aria-hidden
+            style={{
+              color: "var(--accent-sage)",
+              opacity: 0.3,
+              transform: "rotate(-15deg)",
+            }}
+          >
+            <BotanicalAccent size={32} variant="leaf" />
+          </div>
+        </div>
 
+        {/* Tagline */}
         <p
           style={{
             fontFamily: "var(--font-cormorant)",
@@ -40,6 +75,7 @@ export default function Footer() {
           &ldquo;Every face tells a story — let me help you tell yours.&rdquo;
         </p>
 
+        {/* Links */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           {["About", "Services", "Gallery", "Contact"].map((item) => (
             <button
@@ -63,7 +99,7 @@ export default function Footer() {
                 transition: "color 200ms var(--ease-out)",
                 padding: 0,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-gold)")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-sage)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
             >
               {item}
@@ -72,6 +108,7 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Bottom row */}
       <div
         style={{
           display: "flex",
@@ -79,6 +116,7 @@ export default function Footer() {
           alignItems: "center",
           justifyContent: "space-between",
           gap: "1rem",
+          position: "relative",
         }}
       >
         <p
@@ -109,7 +147,7 @@ export default function Footer() {
             transition: "color 200ms var(--ease-out)",
           }}
           onMouseEnter={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = "var(--accent-gold)")
+            ((e.currentTarget as HTMLElement).style.color = "var(--accent-sage)")
           }
           onMouseLeave={(e) =>
             ((e.currentTarget as HTMLElement).style.color = "var(--text-muted)")
